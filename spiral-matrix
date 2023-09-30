@@ -1,0 +1,81 @@
+/**
+   * @param {number[][]} matrix
+   * @return {number[]}
+   */
+  /*
+
+    [1,2,3]
+    [4,5,6]
+    [7,8,9]
+
+    [1,2,3,6,9,8,7,4,5]
+
+
+  */
+  var output_left_right = function(matrix, left, right, top, bottom){
+    let chunk = [];
+    for(var i = left; i < right; i++){
+        // console.log(i);
+        chunk.push(matrix[top][i]);
+    }
+    console.log("lr", chunk);
+    if(left != right && top != bottom)return chunk.concat(output_top_bottom(matrix, left, right, top + 1, bottom));
+    return chunk;
+  }
+
+  var output_top_bottom = function(matrix, left, right, top, bottom){
+    let chunk = [];
+    for(var i = top; i < bottom; i++){
+      // console.log(i);
+        chunk.push(matrix[i][right-1]);
+    }
+    console.log("tb", chunk);
+    if(left != right && top != bottom)return chunk.concat(output_right_left(matrix, left, right - 1, top, bottom));
+    return chunk;
+  }
+
+  var output_right_left = function(matrix, left, right, top, bottom){
+    let chunk = [];
+    for(var i = right-1; i >= left; i--){
+        if(matrix[bottom] && matrix[bottom][i]){
+          
+        }
+        chunk.push(matrix[bottom - 1][i]);
+    }
+    console.log("rl", chunk);
+    if(left != right && top != bottom)return chunk.concat(output_bottom_top(matrix, left, right, top, bottom - 1));
+    return chunk;
+  }
+
+  var output_bottom_top = function(matrix, left, right, top, bottom){
+    let chunk = [];
+    for(var i = bottom - 1; i >= top; i--){
+        if(matrix[bottom] && matrix[bottom][i]){
+          
+        }
+        chunk.push(matrix[i][left]);
+    }
+    console.log("bt", chunk);
+    if(left != right && top != bottom)return chunk.concat(output_left_right(matrix, left + 1, right, top, bottom));
+    return chunk;
+  }
+
+  var spiralOrder = function(matrix) {
+    let x_length = matrix[0].length;
+    let y_length = matrix.length;
+
+    let left = 0;
+    let right = x_length;
+
+    let top = 0;
+    let bottom = y_length;
+
+    let all = output_left_right(matrix, left, right, top, bottom);
+    console.log("result: ");
+    //console.log(all.join(","));
+    return all;
+  };
+
+
+  //spiralOrder([[1,2,3],[4,5,6],[7,8,9]]);
+  //spiralOrder([[1,2,3,4],[5,6,7,8],[9,10,11,12]]);
