@@ -71,8 +71,6 @@
     let bottom = y_length;
 
     let all = output_left_right(matrix, left, right, top, bottom);
-    console.log("result: ");
-    //console.log(all.join(","));
     return all;
   };
 
